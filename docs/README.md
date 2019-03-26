@@ -33,7 +33,7 @@ So, now that we know how to make and use variables, what different types are the
 # Basic Types
 
 Statica uses built-in JS types to determine typing. Below are all the possible "basic types" that you can use in statica:
-```
+```js
 let num = T.type(1, "Number"); //Number Type
 let str = T.type("Hello statica", "String"); //String Type
 let bool = T.type(true, "Boolean"); //Boolean Type
