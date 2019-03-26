@@ -39,3 +39,4 @@ let str = T.type("Hello statica", "String"); //String Type
 let bool = T.type(true, "Boolean"); //Boolean Type
 let arr = T.type([], "Array") //Array Type (No generics)
 let obj = T.type({}, "Object") //Object Type (No generics)
+```
