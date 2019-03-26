@@ -37,6 +37,11 @@ Statica uses built-in JS types to determine typing. Below are all the possible "
 let num = T.type(1, "Number"); //Number Type
 let str = T.type("Hello statica", "String"); //String Type
 let bool = T.type(true, "Boolean"); //Boolean Type
-let arr = T.type([], "Array") //Array Type (No generics)
-let obj = T.type({}, "Object") //Object Type (No generics)
+let arr = T.type([], "Array"); //Array Type (No generics)
+let obj = T.type({}, "Object"); //Object Type (No generics)
+let date = T.type(new Date(), "Date"); //Date Type
+let regexp = T.type(/foobar/, "RegExp"); //Regex Type
+let func = T.type(function(){}, "Function"); //More on functions later
+let NULL = T.type(null, "Null"); //Null Type
+let UNDEFINED = T.type(undefined, "Undefined"); //Undefined Type
 ```
