@@ -1,0 +1,1 @@
+# Statica.js
