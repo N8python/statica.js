@@ -45,3 +45,32 @@ let func = T.type(function(){}, "Function"); //More on functions later
 let NULL = T.type(null, "Null"); //Null Type
 let UNDEFINED = T.type(undefined, "Undefined"); //Undefined Type
 ```
+## Optional Types
+These are great types on their own. However, we can use *suffixes* to "beef them up". Ending any type with a ```?``` makes that type ```optional```. This means that type can be the actual type, null, or undefined:
+```js
+let opNum = T.type(3, "Number?");
+opNum._ = undefined; //Okay
+opNum._ = null; ///Okay
+opNum._ = 5.545; //Okay
+opNum._ = "Hello"; //Error
+```
+## Other Suffixes
+The other suffixes in statica are ```#``` and ```@```. When you add ```#``` to the end of a ```Number``` type, that number can only be an integer.
+```js
+let int = T.type(3, "Number#");
+int._ = 3.4 //Error
+```
+If the ```@``` is attached at the end of a ```String``` type, that string can only be a char:
+```js
+let char = T.type("h", "String@");
+char._ = "Hello"; //Error
+```
+## Class Selectors 
+However, there is a severe limitation in these basic types. All classes you create have the type of ```Object```. In order to specify that you want to check for classes, you need to use the class selector, or ```c:``` (Selectors can have the ```?``` suffix):
+```
+class Foo {}
+let foo = T.type(new Foo(), "c:Foo");
+foo._ = {} //Error
+let foo = T.type(new Foo(), "Object");
+foo._ = {} //No Error
+```
