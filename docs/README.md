@@ -71,6 +71,6 @@ However, there is a severe limitation in these basic types. All classes you crea
 class Foo {}
 let foo = T.type(new Foo(), "c:Foo");
 foo._ = {} //Error
-let foo = T.type(new Foo(), "Object");
+let foo2 = T.type(new Foo(), "Object");
 foo._ = {} //No Error
 ```
