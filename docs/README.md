@@ -83,3 +83,20 @@ class Bar extends Foo {}
 let bar = T.type(new Bar(), "e:Foo");
 bar._ = new Foo() //Error
 ```
+
+# Interfaces
+statica.js comes with native support for interfaces (of some sort). You can define an interface in the following manner:
+```js
+let Person = new Interface({
+  name: {
+    type: "string"
+  },
+  sayName: {
+    type: "function"
+    value: function(){
+      console.log("I'm " + this.name);
+    }
+  }
+});
+```
+The interface constructor takes an object as the parameters, where the keys are the fields. Each value is an object, where you can specify a type (not a statica type, a normal JS type), and a value, which is inserted if the field is not already present.
