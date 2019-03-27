@@ -67,7 +67,7 @@ char._ = "Hello"; //Error
 ```
 ## Class Selectors 
 However, there is a severe limitation in these basic types. All classes you create have the type of ```Object```. In order to specify that you want to check for classes, you need to use the class selector, or ```c:``` (Selectors can have the ```?``` suffix):
-```
+```js
 class Foo {}
 let foo = T.type(new Foo(), "c:Foo");
 foo._ = {} //Error
