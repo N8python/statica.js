@@ -74,3 +74,12 @@ foo._ = {} //Error
 let foo2 = T.type(new Foo(), "Object");
 foo._ = {} //No Error
 ```
+
+## Extension Selector
+The extension selector (```e:```), functions in the same way that the class selector does, except that it reaches back into the prototype chain and matches the class the object inherits:
+```js
+class Foo {}
+class Bar extends Foo {}
+let bar = T.type(new Bar(), "e:Foo");
+bar._ = new Foo() //Error
+```
