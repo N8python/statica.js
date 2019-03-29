@@ -97,6 +97,30 @@ let Person = new Interface({
       console.log("I'm " + this.name);
     }
   }
-});
+}, "Person");
 ```
-The interface constructor takes an object as the parameters, where the keys are the fields. Each value is an object, where you can specify a type (not a statica type, a normal JS type), and a value, which is inserted if the field is not already present.
+The interface constructor takes an object as the parameters, where the keys are the fields. Each value is an object, where you can specify a type (not a statica type, a normal JS type: ```"number"```, ```"boolean"```, ```"string"```, ```"undefined"``` and ```"object"```), and a value, which is inserted if the field is not already present. The last parameter is the name of the interface (INCLUDE THIS PARAMETER - otherwise ```i:``` selectors will fail).
+While classes don't implement interfaces, objects do. Example:
+```js
+let Person = new Interface({
+  name: {
+    type: "string"
+  },
+  sayName: {
+    type: "function"
+    value: function(){
+      console.log("I'm " + this.name);
+    }
+  }
+}, "Person");
+let Joe = {
+  name: "Joe"
+}.implements(Person) // No error, Joe now has sayName function
+let Sally = {}.implements(Person) // Error, sally has no name field.
+```
+You can select interfaces in the same manner you select classes, except the selector is ```i:```:
+```js
+let Joe = ({name:"Joe"}.implements(Person), "i:Person");
+```
+
+
