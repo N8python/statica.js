@@ -120,7 +120,24 @@ let Sally = {}.implements(Person) // Error, sally has no name field.
 ```
 You can select interfaces in the same manner you select classes, except the selector is ```i:```:
 ```js
-let Joe = ({name:"Joe"}.implements(Person), "i:Person");
+let Joe = T.type({name:"Joe"}.implements(Person), "i:Person");
+```
+
+# Data Types
+The langauge Haskell is an amazing and beautiful langauge that rivals Javascript. In Haskell, rather than ```enums```, you can declare a ```data``` type to store multiple values. Now, that functionality has arrived in Javascript:
+```js
+let Color = data({
+  vals: ["Red", "Green", "Blue"],
+  type: "Color"
+});
+let myCol = new Color("Red");
+myCol.value = "Blue"; //Good
+myCol.value = "Yellow"; //Error!
+```
+The data constructor is a metaclass which returns a class that you can use. The ```vals``` parameter represents the valid values of the data type, and the ```type``` parameter is for statica type checking (Like the interface ```name``` parameter, this MUST BE SPECIFIED)
+To type check with data types, you can use the ```d:``` selector.
+```js
+let myCol = T.type(new Color("Red"), "d:Color");
 ```
 
 
