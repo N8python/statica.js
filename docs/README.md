@@ -171,10 +171,60 @@ Type operators have certain limitations:
 
 # Function Type Checking
 
-# Typeifying Parameters
+## Typeifying Parameters
 In order to implement function type checking, let's start with a typical function:
 ```js
 function add(a, b){
   return a + b;
 }
+```
+In order to implement type checking, let's start by checking that both parameters are numbers with the ```T.typeify``` function. Pass in the functions ```arguments``` array as the first argument, and then an array of the types you want for each parameter. The functions turns your parameters into typewrapped objects, like the ones created by ```T.type```, so you use ```yourvarnamehere._``` to access the parameters's values after the ```T.typeify``` call:
+```js
+function add(a, b){
+  T.typeify(arguments, ["Number", "Number"]);
+  return a._ + b._;
+}
+```
+This inforces type checking on parameters. To do type checking on the return value, use ```T.returns```:
+```js
+function add(a, b){
+  T.typeify(arguments, ["Number", "Number"]);
+  return T.returns(a._ + b._, "Number");
+}
+```
+## Function Headers
+Now, this is all you need at a bare minimum. However, if you are going to use first-class functions, you must specify a *function header* to type check for those functions. Below are the functions that accomplish that:
+```js
+function add(a, b){
+  T.typeify(arguments, ["Number", "Number"]);
+  return T.returns(a._ + b._, "Number");
+}.params("Number", "Number").returns("Number");
+```
+The ```params``` functions defines the type of the parameters (in order), while the ```returns``` function defines the return type. Then, you can type check with function headers like this (using the code from the previous example):
+```js
+function doMath(a, b, func){
+  T.typeify(arguments, ["Number, "Number", {
+    params: ["Number, "Number"]
+    returns: "Number"
+  });
+  return T.returns(func._(a._, b._), "Number");
+} //You don't need header annotation if you're not going to type check the function itself.
+```
+The function header is composed of an object, with the ```params``` key, and the ```returns``` key. The ```params``` key is a list of the types of the function's arguments, in order, while the ```returns``` key is the functions return type. Using the code from above, we can call the doMath function like this:
+```js
+doMath(3, 7, add) //Returns 10
+```
+## Generics
+Where are the generics? ALl type-checking libraries have them. In statica, we have the ```T.generic``` function, that takes in a value and returns it's type. You can see it in action here:
+```js
+function id(val){
+  T.typeify(arguments, T.generic(val));
+  return T.returns(val, T.generic(val));
+} //Function headers are not yet supported for generics.
+```
+However, because there is no way in native javascript to implement function generics in function headers, if you want to type check a generic function, use the ```Function``` type.
 
+And that's statica!
+
+# Features coming soon(er or later):
+- AND, OR and NOT nesting - Which means you can use all three in the same type.
