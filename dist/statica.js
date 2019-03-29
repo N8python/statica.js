@@ -31,9 +31,6 @@ function data(obj){
       if(obj.vals.includes(val)) this["[[PrimitiveValue]]"] = val;
       else throw new Error(`Value passed in not in valid values array: ${JSON.stringify(obj.vals)}`);
     }
-    valueOf(){
-      return this["[[PrimitiveValue]]"];
-    }
   }
 }
 
