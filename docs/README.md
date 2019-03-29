@@ -124,7 +124,7 @@ let Joe = T.type({name:"Joe"}.implements(Person), "i:Person");
 ```
 
 # Data Types
-The langauge Haskell is an amazing and beautiful langauge that rivals Javascript. In Haskell, rather than ```enums```, you can declare a ```data``` type to store multiple values. Now, that functionality has arrived in Javascript:
+The langauge Haskell is an amazing and beautiful langauge that rivals Javascript. In Haskell, rather than ```enums```, you can declare a data type to store multiple values. Now, that functionality has arrived in Javascript:
 ```js
 let Color = data({
   vals: ["Red", "Green", "Blue"],
@@ -139,5 +139,42 @@ To type check with data types, you can use the ```d:``` selector.
 ```js
 let myCol = T.type(new Color("Red"), "d:Color");
 ```
+Remeber, because ```T.type``` implements a wrapper, in order to access the value of a data type wrapped in a ```T.typewrapper```, you must type:
+```js
+MyDataType._.value;
+```
+# Type Operators
+Let's say you wanted to make a type that could be a number or a string. By using the OR operator ```|```, this is possible:
+```
+let numorstr = T.type(3, "Number|String");
+numorstr._ = "Hello"; //No error
+numorstr._ = true; //Error
+```
+The OR operator can take an unlimited number of types (You can string them together). 
+Next, you can use the AND operator to specifiy to types the value must fufill:
+```js
+class Foo {}
+let Bar = new Interface({}, "Bar");
+let foobar = T.type(new Foo().implements(Bar), "c:Foo&i:Bar");
+```
+Finally, the NOT operator can be placed at the beginning of the string to reverse the effect of the type.
+```js
+let nobool = T.type(3, "!Boolean");
+nobool._ = "Hello"; //No Error
+nobool._ = true; //Error
+```
+## Limitations
+Type operators have certain limitations:
+1. Not operators can only be placed once at the beginning of a type.
+2. You can not include AND and OR operators in the same type.
+3. Operators cannot be nested (no parentheses).
 
+# Function Type Checking
+
+# Typeifying Parameters
+In order to implement function type checking, let's start with a typical function:
+```js
+function add(a, b){
+  return a + b;
+}
 
