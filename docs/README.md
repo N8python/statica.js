@@ -215,7 +215,7 @@ The function header is composed of an object, with the ```params``` key, and the
 doMath(3, 7, add) //Returns 10
 ```
 ## Generics
-Where are the generics? ALl type-checking libraries have them. In statica, we have the ```T.generic``` function, that takes in a value and returns it's type. You can see it in action here:
+Where are the generics? ALL type-checking libraries have them. In statica, we have the ```T.generic``` function, that takes in a value and returns it's type. You can see it in action here:
 ```js
 function id(val){
   T.typeify(arguments, T.generic(val));
