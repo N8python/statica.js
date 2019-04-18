@@ -6,8 +6,14 @@ To get started, including the following ```<script>``` tag in the head of your h
 ```html
 <script src="https://cdn.jsdelivr.net/gh/N8python/statica.js@0.0.1/dist/statica.min.js"></script>
 ```
-Currently, statica is only available on the client side.
-
+Or, if you are on the server side, you can install statica with:
+```
+npm i statica.js
+```
+Then require it with:
+```js
+const {T, Interface, data} = require("statica.js");
+```
 # Making your first variable
 Let's get started, and make a statica variable:
 ```js
@@ -203,8 +209,8 @@ function add(a, b){
 The ```params``` functions defines the type of the parameters (in order), while the ```returns``` function defines the return type. Then, you can type check with function headers like this (using the code from the previous example):
 ```js
 function doMath(a, b, func){
-  T.typeify(arguments, ["Number, "Number", {
-    params: ["Number, "Number"]
+  T.typeify(arguments, ["Number", "Number", {
+    params: ["Number", "Number"],
     returns: "Number"
   });
   return T.returns(func._(a._, b._), "Number");
